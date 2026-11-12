@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechStore - Ofertas Shopee</title>
     
-    <!-- CONFIGURAÇÕES PWA (Para instalar no celular) -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ee4d2d">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="TechStore">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
-
-    <!-- IMPORTAÇÃO DE BIBLIOTECAS -->
+    <!-- IMPORTAÇÃO DE BIBLIOTECAS VISUAIS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -162,7 +154,8 @@
 
     <!-- JAVASCRIPT DA APLICAÇÃO -->
     <script>
-        // BANCO DE DADOS: Altere o valor de "url:" para o seu link de afiliado/vendedor da Shopee
+        // BANCO DE DADOS DOS PRODUTOS
+        // Para mudar o link de um produto, basta trocar o "https://shopee.com.br" pelo seu link de afiliado/vendedor!
         const categoriesData = {
             eletronicos: {
                 title: "Eletrônicos",
@@ -271,7 +264,7 @@
             return amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
 
-        // MONTAGEM DOS CARDS: O BOTÃO COMPRAR É UM LINK DIRETO (<a>) PARA A SHOPEE (ABRE EM NOVA ABA)
+        // RENDERIZAÇÃO DOS PRODUTOS COM BOTÃO PARA LINK EXTERNO DA SHOPEE
         function renderProducts(items) {
             const grid = document.getElementById('products-grid');
             const emptySearch = document.getElementById('empty-search');
@@ -308,7 +301,7 @@
                                 <span class="text-lg font-extrabold text-slate-900">${formatMoney(product.price)}</span>
                             </div>
                             
-                            <!-- BOTÃO DE DIRETO PARA A SHOPEE -->
+                            <!-- BOTÃO COMPRAR (Link direto para a Shopee) -->
                             <a 
                                 href="${product.url}" 
                                 target="_blank" 
@@ -345,15 +338,6 @@
         function resetToHome() {
             document.getElementById('search-input').value = '';
             loadCategory(currentCategoryKey);
-        }
-
-        // REGISTRAR SERVICE WORKER PARA PWA (Permite instalar o App no celular)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('PWA Pronto!'))
-                    .catch(err => console.log('Erro PWA:', err));
-            });
         }
     </script>
 </body>
